@@ -6,7 +6,7 @@ A full-stack web application that analyzes resumes against job descriptions usin
 
 ## Features
 
-- **ATS Score** — combined score from TF-IDF cosine similarity (60%) and keyword match ratio (40%)
+- **ATS Score** — combined score from keyword match ratio (70%) and TF-IDF character-n-gram cosine similarity (30%)
 - **Keyword Analysis** — matched and missing keywords extracted from the job description
 - **Suggestions** — personalised tips to improve your resume
 - **Dashboard** — history table and score trend chart
@@ -151,11 +151,11 @@ All analysis endpoints require `Authorization: Bearer <token>`.
 ## Scoring Algorithm
 
 ```
-ATS Score = (cosine_similarity × 0.6 + keyword_match_ratio × 0.4) × 100
+ATS Score = (keyword_match_ratio × 0.70 + cosine_similarity × 0.30) × 100
 ```
 
-- **cosine_similarity** — TF-IDF vectors of preprocessed resume vs job description
-- **keyword_match_ratio** — fraction of top-40 job keywords found in the resume
+- **keyword_match_ratio** — fraction of top-40 JD keywords found in the resume (primary signal)
+- **cosine_similarity** — character n-gram TF-IDF cosine between preprocessed resume and JD texts
 
 ---
 

@@ -6,12 +6,17 @@ from utils.keywords import extract_keywords, preprocess
 
 _TOP_N_KEYWORDS = 40  # number of job keywords used for matching
 
+# Weights: keyword matching dominates because TF-IDF cosine on just 2 docs
+# tends to underestimate semantic overlap.
+_KEYWORD_WEIGHT = 0.70
+_SEMANTIC_WEIGHT = 0.30
+
 
 def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
     """
-    Compute ATS score using TF-IDF cosine similarity and keyword matching.
+    Compute ATS score using keyword matching (70%) and TF-IDF cosine similarity (30%).
 
-    Score = (semantic_similarity * 0.6 + keyword_match_ratio * 0.4) * 100
+    Score = (keyword_match_ratio * 0.70 + cosine_similarity * 0.30) * 100
 
     Returns a dict with keys:
         ats_score (float): Overall ATS score 0–100.
@@ -24,31 +29,31 @@ def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
     resume_clean = preprocess(resume_text)
     job_clean = preprocess(job_description)
 
-    # --- Semantic similarity via TF-IDF cosine ---
-    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+    # --- Semantic similarity via TF-IDF cosine (character n-grams for robustness) ---
+    vectorizer = TfidfVectorizer(analyzer='char_wb', ngram_range=(3, 5))
     try:
         tfidf = vectorizer.fit_transform([resume_clean, job_clean])
         semantic_similarity = float(cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0])
     except ValueError:
         semantic_similarity = 0.0
 
-    # --- Keyword matching ---
+    # --- Keyword matching (unigrams only for fairer matching) ---
     job_keywords = extract_keywords(job_description, top_n=_TOP_N_KEYWORDS)
-    resume_keywords_set = set(preprocess(resume_text).split())
+    resume_tokens = set(preprocess(resume_text).split())
 
     matched = []
     missing = []
     for kw in job_keywords:
-        # A keyword phrase matches if every word in it appears in the resume
+        # For multi-word keywords, require all constituent words in the resume
         kw_words = set(kw.split())
-        if kw_words.issubset(resume_keywords_set):
+        if kw_words.issubset(resume_tokens):
             matched.append(kw)
         else:
             missing.append(kw)
 
     keyword_match_ratio = len(matched) / len(job_keywords) if job_keywords else 0.0
 
-    ats_score = (semantic_similarity * 0.6 + keyword_match_ratio * 0.4) * 100
+    ats_score = (keyword_match_ratio * _KEYWORD_WEIGHT + semantic_similarity * _SEMANTIC_WEIGHT) * 100
     ats_score = max(0.0, min(100.0, ats_score))
 
     suggestions = _generate_suggestions(
