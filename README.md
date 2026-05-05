@@ -1,5 +1,7 @@
 # AI Resume Analyzer
 
+Full-stack ATS Resume Analyzer using NLP for resume screening, ATS scoring, and keyword analysis.
+
 A full-stack resume analyzer that uploads PDF/DOCX resumes, extracts text, runs a spaCy NLP pipeline, compares the resume to a job description with Sentence Transformer embeddings, calculates an ATS score, and stores analysis history in MongoDB.
 
 ## Tech Stack
@@ -22,6 +24,7 @@ backend/
     utils/
   uploads/
   requirements.txt
+
 frontend/
   public/
   src/
