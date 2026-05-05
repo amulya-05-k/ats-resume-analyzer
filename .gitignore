@@ -1,3 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.env
+*.db
+
+# Backend runtime
+backend/instance/
+backend/uploads/
+
 # Logs
 logs
 *.log
@@ -141,3 +153,26 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+*.egg
+venv/
+.venv/
+env/
+
+# Flask / SQLite
+instance/
+*.db
+*.sqlite3
+uploads/
+.env
+
+# Frontend build
+frontend/dist/
+frontend/node_modules/
