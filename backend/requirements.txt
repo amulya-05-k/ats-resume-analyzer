@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+motor
+pymongo
+python-multipart
+pdfplumber
+python-docx
+spacy
+pydantic
+python-dotenv
+sentence-transformers
+scikit-learn
+numpy
+pandas
+rapidfuzz
+nltk

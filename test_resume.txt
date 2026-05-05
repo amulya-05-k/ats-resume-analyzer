@@ -1,0 +1,35 @@
+John Doe
+Software Engineer
+Email: john@example.com
+Phone: +1-234-567-8900
+
+SUMMARY
+Experienced Full Stack Developer with 5+ years of expertise in Python, JavaScript, React, and cloud technologies.
+
+TECHNICAL SKILLS
+- Languages: Python, JavaScript, TypeScript, SQL, HTML, CSS
+- Frameworks: FastAPI, React, Node.js, Django
+- Databases: MongoDB, PostgreSQL, MySQL
+- Tools: Git, Docker, Kubernetes, AWS, Azure
+- Methodologies: Agile, CI/CD, Microservices
+
+EXPERIENCE
+Senior Developer - Tech Corp (2021 - Present)
+- Built microservices architecture using Python and FastAPI
+- Designed and implemented MongoDB data models
+- Developed React components for data visualization
+- Improved application performance by 40% through optimization
+
+Full Stack Developer - StartUp Inc (2019 - 2021)
+- Developed full-stack web applications using MERN stack
+- Implemented RESTful APIs with Node.js and Express
+- Managed AWS deployment and CI/CD pipelines
+- Mentored 3 junior developers
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology, 2019
+
+CERTIFICATIONS
+- AWS Solutions Architect Associate
+- Certified Kubernetes Administrator
