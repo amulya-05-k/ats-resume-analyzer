@@ -31,6 +31,7 @@ def create_app():
         return {'status': 'ok'}
 
     with app.app_context():
+        Config.validate_secrets()
         os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
         db.create_all()
 

@@ -77,6 +77,9 @@ def analyze():
             'analysis': analysis.to_dict(),
         }), 201
 
+    except ValueError as e:
+        current_app.logger.warning(f'Analysis validation error: {e}')
+        return jsonify({'error': str(e)}), 422
     except Exception as e:
         current_app.logger.error(f'Analysis error: {e}', exc_info=True)
         return jsonify({'error': 'Analysis failed. Please check your file and try again.'}), 500

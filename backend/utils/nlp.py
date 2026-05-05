@@ -10,7 +10,16 @@ _TOP_N_KEYWORDS = 40  # number of job keywords used for matching
 def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
     """
     Compute ATS score using TF-IDF cosine similarity and keyword matching.
+
     Score = (semantic_similarity * 0.6 + keyword_match_ratio * 0.4) * 100
+
+    Returns a dict with keys:
+        ats_score (float): Overall ATS score 0–100.
+        semantic_score (float): TF-IDF cosine similarity 0–100.
+        keyword_score (float): Keyword match ratio 0–100.
+        matched_keywords (List[str]): JD keywords found in resume.
+        missing_keywords (List[str]): JD keywords absent from resume.
+        suggestions (List[str]): Human-readable improvement tips.
     """
     resume_clean = preprocess(resume_text)
     job_clean = preprocess(job_description)
